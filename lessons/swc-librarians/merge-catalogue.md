@@ -265,3 +265,24 @@ A Canticle for Leibowitz Walter M. Miller 4
 The Moon is a Harsh Mistress Robert A. Heinlein 2
 ...
 ~~~
+
+### Summary
+
+This lesson comes from actual requests library techs have shared with us.
+
+In this lesson, we have learned:
+
+  1.  Working with multiple data sources
+  2.  Nested looping
+
+### Need a bigger challenge?
+
+  Ideas for "take home" work or for more advanced students.
+
+  1.  Use a Python dictionary to eliminate the need for the inner for loop in the solution above.
+  2.  Imagine we have multiple files containing circulation counts (maybe from
+  different branches).  Combine the counts from separate files into a single count above 
+  3.  Allow the files to be passed on the command-line where the first file is the title/author index and
+      any subsequent files are circulation count files.
+
+     % python merge_cat.py title-auth.csv circ-id-1.csv [circ-id-2.csv ...]
