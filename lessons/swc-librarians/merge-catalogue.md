@@ -38,7 +38,8 @@ By merging our two data sets, we will be able to see which of our titles has the
 To solve our problem, we need to match each line in file 1 with the corresponding line in file 2. There is only one field that appears in both fields, Item ID, so we need to use this field to match lines between our files. We will do this by opening each file, looping through the contents, and printing out the lines that match each other.
 
 ###Building our program
-####1. Opening the files
+
+#### 1. Opening the files
 Our files ([title-auth.csv](files/title-auth.csv) and [circ-id.csv](files/circ-id.csv)) are stored in a file type called "comma separated values". As you can see above, commas separate each field on the lines of our document.
 
 To begin working with our file, we must open it in our program. Whenever you open a file, you must also close it. It won't necessarily cause an error if you don't, but it is good practice to do so. We will open and close both files:
@@ -65,13 +66,14 @@ file2.close()
 ~~~
 
 When you run your program, you should get somethign like the following result:
-~~~ python
-	['Item ID,checkouts\n', '312210121212,5\n', '312210123281,1\n', '312210121314,2\n', '312210121823,4\n', '312210121284,7\n', '312210124153,18\n', '312210124153,3\n', '312210124812,4\n', '312210123691,9\n', '312210128794,7\n', '312210125321,14\n']
+
+~~~python
+['Item ID,checkouts\n', '312210121212,5\n', '312210123281,1\n', '312210121314,2\n', '312210121823,4\n', '312210121284,7\n', '312210124153,18\n', '312210124153,3\n', '312210124812,4\n', '312210123691,9\n', '312210128794,7\n', '312210125321,14\n']
 ~~~
 
 Now we have a big long string of text that is our variable f1_lines. This isn't yet ready to compare against our second file. So that we can compare the item ID fields to each other in the two files, we need to split up the Item ID and the checkout fields. To do so, we first need to read each line in our file with a loop, and then we need to split each line wherever there is a comma into a separate data field. This can be done using the split() method.
 
-~~~ python
+~~~python
 file1 = open('circ-id.csv')
 file2 = open ('title-auth.csv')
 
@@ -86,7 +88,7 @@ file2.close()
 
 On the sixth line above, we begin looping over our data stored in the variable f1_lines. Line 7 then splits each line it is fed wherever it encounters a comma. Each data element is now stored in an array. Your program output should look something like this:
 
-~~~ python
+~~~python
 ['Item ID', 'checkouts\n']
 ['312210121212', '5\n']
 ['312210123281', '1\n']
@@ -103,7 +105,7 @@ On the sixth line above, we begin looping over our data stored in the variable f
 
 Now that we have our data from file 1 separated into discrete elements, we can now repeat the same thing for file 2:
 
-~~~ python
+~~~python
 file1 = open('circ-id.csv')
 file2 = open ('title-auth.csv')
 
@@ -123,7 +125,8 @@ file2.close()
 ~~~
 
 Your output will look something like this now:
-~~~ python
+
+~~~python
 ['Item ID', 'checkouts\n']
 ['312210121212', '5\n']
 ['312210121823', '4\n']
@@ -155,6 +158,7 @@ file2.close()
 ~~~
 
 We now have a loop inside of another loop. Our program looks at the first line of file 1 and prints it, and then looks at every line of file 2 and prints it, and then move on the the second line of file 1 and repeats. We don't really want to be printing each line however. We want to compare elements of each line to see if they match. We will do so by comparing the first data element (the Item ID column) of each line from both files using the == operator. Then, we will use an if statement to print "yes" whenever the two fields match. Since the item ID column is the first data element in both documents, it can be referenced as field_f1[0] for file 1 and field_f2[0] for file 2.
+
 ~~~python
 file1 = open('circ-id.csv')
 file2 = open ('title-auth.csv')
@@ -253,7 +257,8 @@ file2.close()
 ~~~
 
 Your output should now look something like this:
-~~~python
+
+~~~
 Title Author checkouts
 Catching Fire Suzanne Collins 5
 A Canticle for Leibowitz Walter M. Miller 4
