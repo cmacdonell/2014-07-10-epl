@@ -187,9 +187,9 @@ would do this as follows:
 ~~~ python
     fh = open('library_card.txt')
     all_lines = fh.readlines()
+    fh.close() #once we've read the data, close the file
     for line in all_lines:
         print line
-    fh.close()
 ~~~
 
 But, how do we skip the first three lines?  That's easy.  We can use **list slicing**, we can give two
@@ -199,10 +199,10 @@ just the lines we want.
 ~~~ python
     fh = open('library-card.txt')
     all_lines = fh.readlines()
+    fh.close() #once we've read the data, close the file
     due_dates = all_lines[3:len(all_lines)]
     for date in due_dates
         print date
-    fh.close()
 ~~~
 
 On the 3rd line above, we create a new list named due_dates by indexing the list variable all_lines to start at line 3 and go until the end, the length of the list len(all_lines).  After executing this line, due_dates will contain only the lines that have the due dates, not the book title, author, etc.
@@ -245,12 +245,12 @@ Take a minute and modify your program to only output the year from each line.
 ~~~ python
     fh = open('library-card.txt')
     all_lines = fh.readlines()
+    fh.close() #once we've read the data, close the file
     due_dates = all_lines[3:len(all_lines)]
     for date in due_dates
         field = date.split(' ') # we want to divide the data on whitespace into M-D-Y
         print field[2]
-    fh.close()
-~~~
+ ~~~
 
 Now, you should see output like the following:
 
@@ -382,9 +382,12 @@ Congrats, we have successfully modified our data.  Our list "due_dates" now cont
     Oct 5 1951
     Feb 26 1952
 
-### Still to come....
+#### Saving our "corrected" circulation card
 
-#### Writing to a file
+The last part of this lesson to is to write our new "corrected" circulation card data to file
+that.  First, we'll briefly cover writing to files in Python
+
+##### Writing to a file
 
 Just a we can read from a file, Python naturally supports writing to files too.  The following simple snippet will
 create a file named 'my_words.txt' and write four lines to it.
@@ -407,8 +410,6 @@ If my_words.txt already existed, regardless of it's length or contents, it would
 
 It is important to close all files (reading or writing) when you are done with them or unexpected things can happen.
 
-#### Modifying files
-
 If we want to modify a file, that is, make a change to it, the process can seem complicated.  We will first open it, read the contents into our program and then close the file.  Then we will open it again (this time using the 'w' parameter) and overwrite it.  Even if we want to change a single line, in Python, we will overwrite the whole file completely.  This might sound inefficient, akin to rewriting a whole document by hand, but given computers are so fast at writing files, it's the easiest way to do it.
 
 ~~~ python
@@ -427,4 +428,63 @@ the file.  It is important to understand what you are doing when writing to
 files.  I suggest using test files before running your program on any important
 data that would be difficult to replace.
 
+##### Back to our circulation card
 
+We have a few additions to our code from above to overwrite the library-card.txt file with the new
+data.  If you don't want to overwrite the data (or are nervous, name the file something different like
+library-card-fixed.txt).
+
+We need to do four things to write the file
+  1. Open the file with write permissions
+  2. Rewrite the first three lines of the original file (author info, etc.)
+  3. Write the fixed due dates that we have created
+  4. Close the file
+
+The comments in the complete solution below have the corresponding numbers.
+~~~
+    fh = open('library-card.txt')
+    all_lines = fh.readlines()
+    fh.close() # close the file when we're done with it
+
+    due_dates = all_lines[3:len(all_lines)]
+
+    # 1. open the file to write to it
+    # this deletes the contents (don't worry we'll replace them)
+    fh = open('library-card.txt','w') # you could name the output file something else
+
+    # 2. print out first 3 lines - author info, title, etc.
+    for i in range(3):
+        fh.write(all_lines[i])
+
+    for line in due_dates:
+        line = line.strip('\n')
+        field = line.split(' ')
+        
+        if len(field[2]) == 2:
+            field[2] = "19" + field[2]
+
+        if len(field[2]) == 3:
+            field[2] = "19" + field[2][1:]
+
+        # 3. write each new "clean" line to the file
+        fh.write(field[0] + " " + field[1] + " " + field[2] +"\n")
+    # 4. always close files when done
+    fh.close() 
+~~~
+
+### Summary
+
+We have now completed our task.  We have properly cleaned the circulation card
+and replaced the variable year formats in the file with consistent 4-digit years.
+
+Things we have learned or re-inforced in this lesson:
+
+  1.  Working with files
+  2.  Detecting different conditions (2-digit with or without apostrophe)
+  3.  Working with *columnar* data
+  4.  Writing files
+
+While this example may seem simple or not a real world situation, the concepts
+here, in particular working with files that contain columns of information, translate to almost
+any data format that can be represented in plain-text files.  Recall that a spreadsheet
+is just columns of data organized in lines.  Processing a file
