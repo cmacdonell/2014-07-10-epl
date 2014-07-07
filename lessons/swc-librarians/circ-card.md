@@ -456,7 +456,8 @@ We need to do four things to write the file
   4. Close the file
 
 The comments in the complete solution below have the corresponding numbers.
-~~~
+
+~~~ python
 fh = open('library-card.txt')
 all_lines = fh.readlines()
 fh.close() # close the file when we're done with it
@@ -502,4 +503,4 @@ Things we have learned or re-inforced in this lesson:
 While this example may seem simple or not a real world situation, the concepts
 here, in particular working with files that contain columns of information, translate to almost
 any data format that can be represented in plain-text files.  Recall that a spreadsheet
-is just columns of data organized in lines.  Processing a file
+is just columns of data organized in lines.
