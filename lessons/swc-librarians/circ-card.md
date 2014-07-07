@@ -21,9 +21,9 @@ history of books.  For example, consider the following
 If we translate this card to a text file, either manually or using some kind
 of optical character recognition (OCR), we would end up with something like
 the
-[following](./files/library-card.txt).While
-now electronic, we have a program with inconsistent data.  We can have dates
-in the following three formats:
+[following](./files/library-card.txt).
+While now electronic, we have a program with inconsistent data.
+We can have dates in the following three formats:
 
     Feb 16 53
     Jun 21 '54
@@ -164,13 +164,14 @@ The output would be
 
 ##### Back to our circulation card:
 
-Let's write the code to read the card file named library_card.txt into our program.  (I suggest giving the students a few minutes to try this.)
+Let's write the code to read the card file named **library_card.txt** into our program.
+(I suggest giving the students a few minutes to try this.)
 
 
 ~~~ python
-    fh = open('library-card.txt')
-    all_lines = fh.readlines()
-    fh.close()
+fh = open('library-card.txt')
+all_lines = fh.readlines()
+fh.close()
 ~~~
 
 The above will read in all the contents of circulation card.  Even if it
@@ -185,11 +186,11 @@ lines of the file in a large list.  We know how to loop over all the lines, we
 would do this as follows:
 
 ~~~ python
-    fh = open('library_card.txt')
-    all_lines = fh.readlines()
-    fh.close() #once we've read the data, close the file
-    for line in all_lines:
-        print line
+fh = open('library_card.txt')
+all_lines = fh.readlines()
+fh.close() #once we've read the data, close the file
+for line in all_lines:
+    print line
 ~~~
 
 But, how do we skip the first three lines?  That's easy.  We can use **list slicing**, we can give two
@@ -197,12 +198,12 @@ indices - where to start and where to stop to index into the list.  So the follo
 just the lines we want.
 
 ~~~ python
-    fh = open('library-card.txt')
-    all_lines = fh.readlines()
-    fh.close() #once we've read the data, close the file
-    due_dates = all_lines[3:len(all_lines)]
-    for date in due_dates
-        print date
+fh = open('library-card.txt')
+all_lines = fh.readlines()
+fh.close() #once we've read the data, close the file
+due_dates = all_lines[3:len(all_lines)]
+for date in due_dates
+    print date
 ~~~
 
 On the 3rd line above, we create a new list named due_dates by indexing the list variable all_lines to start at line 3 and go until the end, the length of the list len(all_lines).  After executing this line, due_dates will contain only the lines that have the due dates, not the book title, author, etc.
@@ -243,14 +244,14 @@ we access it?  The first task is to split the data into the separate fields
 Take a minute and modify your program to only output the year from each line.
 
 ~~~ python
-    fh = open('library-card.txt')
-    all_lines = fh.readlines()
-    fh.close() #once we've read the data, close the file
-    due_dates = all_lines[3:len(all_lines)]
-    for date in due_dates
-        field = date.split(' ') # we want to divide the data on whitespace into M-D-Y
-        print field[2]
- ~~~
+fh = open('library-card.txt')
+all_lines = fh.readlines()
+fh.close() #once we've read the data, close the file
+due_dates = all_lines[3:len(all_lines)]
+for date in due_dates
+    field = date.split(' ') # we want to divide the data on whitespace into M-D-Y
+    print field[2]
+~~~
 
 Now, you should see output like the following:
 
@@ -294,19 +295,25 @@ we have a two-digit year.
 
 We can detect the length of a string using the *len()* function.
 
-    if len(field[2]) == 2:
+~~~ python
+if len(field[2]) == 2:
+~~~
 
 So, how do we change **50** into **1950** in Python?
 
 Remember that we are dealing with strings, not integers, so we *concatenate*
 a **"19"** on the front.
 
-    field[2] = "19" + field[2]
+~~~ python
+field[2] = "19" + field[2]
+~~~
 
 So, we need to add the following code to modify two-digit-no-apostrophe years to 4-digit years:
 
-    if len(field[2]) == 2:
-        field[2] = "19" + field[2]
+~~~ python
+if len(field[2]) == 2:
+    field[2] = "19" + field[2]
+~~~
 
 See if you can add this code in the correct location?  Our output should change to:
 
@@ -333,7 +340,9 @@ The second case we need to fix is very similar to the first.  We need to detect 
 The simplest way is to again check the length.  Years with apostrophes will
 have a length of 3.  So we can use a similar if statement like
 
-    if len(field[2]) == 3:
+~~~ python
+if len(field[2]) == 3:
+~~~
 
 will detect them.  But how do we fix it?  We cannot simply concatenate like we did before as that would result
 in '49 turning into **19'49** which is not what we want?  How do we get just
@@ -343,17 +352,23 @@ Similar to skipping the first three lines of the file, we can *slice* the part o
 want the first character which has the index???? Zero, that's right!  So we'll start at index one.  The following
 (slightly complicated) bit of Python will get just the year dates
 
-    field[2][1:len(field[2])]
+~~~ python
+field[2][1:len(field[2])]
+~~~
 
 Sometimes using an extra variable makes the code a bit more readable:
 
-    yr_apostrophe = field[2]
-    field[2] = "19" + yr_apostrophe[1:len(field[2])]
+~~~ python
+yr_apostrophe = field[2]
+field[2] = "19" + yr_apostrophe[1:len(field[2])]
+~~~
 
 In fact, we can drop the **len(field[2])** and get cleaner code
 
-    yr_apostrophe = field[2]
-    field[2] = "19" + yr_apostrophe[1:]
+~~~ python
+yr_apostrophe = field[2]
+field[2] = "19" + yr_apostrophe[1:]
+~~~
 
 Now combine this statement with the if statement to detect a year length of
 3 to correctly modify two digit years with apostrophes into 4-digit years.
@@ -442,34 +457,34 @@ We need to do four things to write the file
 
 The comments in the complete solution below have the corresponding numbers.
 ~~~
-    fh = open('library-card.txt')
-    all_lines = fh.readlines()
-    fh.close() # close the file when we're done with it
+fh = open('library-card.txt')
+all_lines = fh.readlines()
+fh.close() # close the file when we're done with it
 
-    due_dates = all_lines[3:len(all_lines)]
+due_dates = all_lines[3:len(all_lines)]
 
-    # 1. open the file to write to it
-    # this deletes the contents (don't worry we'll replace them)
-    fh = open('library-card.txt','w') # you could name the output file something else
+# 1. open the file to write to it
+# this deletes the contents (don't worry we'll replace them)
+fh = open('library-card.txt','w') # you could name the output file something else
 
-    # 2. print out first 3 lines - author info, title, etc.
-    for i in range(3):
-        fh.write(all_lines[i])
+# 2. print out first 3 lines - author info, title, etc.
+for i in range(3):
+    fh.write(all_lines[i])
 
-    for line in due_dates:
-        line = line.strip('\n')
-        field = line.split(' ')
-        
-        if len(field[2]) == 2:
-            field[2] = "19" + field[2]
+for line in due_dates:
+    line = line.strip('\n')
+    field = line.split(' ')
+    
+    if len(field[2]) == 2:
+        field[2] = "19" + field[2]
 
-        if len(field[2]) == 3:
-            field[2] = "19" + field[2][1:]
+    if len(field[2]) == 3:
+        field[2] = "19" + field[2][1:]
 
-        # 3. write each new "clean" line to the file
-        fh.write(field[0] + " " + field[1] + " " + field[2] +"\n")
-    # 4. always close files when done
-    fh.close() 
+    # 3. write each new "clean" line to the file
+    fh.write(field[0] + " " + field[1] + " " + field[2] +"\n")
+# 4. always close files when done
+fh.close() 
 ~~~
 
 ### Summary
