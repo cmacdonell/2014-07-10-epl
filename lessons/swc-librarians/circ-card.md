@@ -355,7 +355,8 @@ In fact, we can drop the **len(field[2])** and get cleaner code
     yr_apostrophe = field[2]
     field[2] = "19" + yr_apostrophe[1:]
 
-So, combine this statement with the if statement above to modify two digit years with apostrophes into 4-digit years.
+Now combine this statement with the if statement to detect a year length of
+3 to correctly modify two digit years with apostrophes into 4-digit years.
 
     1949
     1950
