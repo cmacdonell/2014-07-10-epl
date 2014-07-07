@@ -504,3 +504,15 @@ While this example may seem simple or not a real world situation, the concepts
 here, in particular working with files that contain columns of information, translate to almost
 any data format that can be represented in plain-text files.  Recall that a spreadsheet
 is just columns of data organized in lines.
+
+### Need a bigger challenge?
+
+You may treat the follow on as "take home" assignments to add a level of challenge, or if you find the above example
+too simple then try your hand at these.  An instructor may give these to
+advanced students to occupy them while giving the lesson above.
+
+  1.  Allow the file name to be given from the command-line
+      
+    % python circulation-fix.py library-card.txt
+
+  2.  Try with an even less consistent input file [library-card-hard.txt](./files/library-card-hard.txt).
