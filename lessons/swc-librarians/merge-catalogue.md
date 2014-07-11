@@ -68,7 +68,7 @@ file2.close()
 When you run your program, you should get somethign like the following result:
 
 ~~~python
-['Item ID,checkouts\n', '312210121212,5\n', '312210123281,1\n', '312210121314,2\n', '312210121823,4\n', '312210121284,7\n', '312210124153,18\n', '312210124153,3\n', '312210124812,4\n', '312210123691,9\n', '312210128794,7\n', '312210125321,14\n']
+['Item ID,checkouts\n', '312210121212,5\n', '312210123281,1\n', '312210121314,2\n', '312210121823,4\n', '312210121284,7\n', '312210124153,18\n', '312210124159,3\n', '312210124812,4\n', '312210123691,9\n', '312210128794,7\n', '312210125321,14\n']
 ~~~
 
 Now we have a big long string of text that is our variable f1_lines. This isn't yet ready to compare against our second file. So that we can compare the item ID fields to each other in the two files, we need to split up the Item ID and the checkout fields. To do so, we first need to read each line in our file with a loop, and then we need to split each line wherever there is a comma into a separate data field. This can be done using the split() method.
@@ -96,7 +96,7 @@ On the sixth line above, we begin looping over our data stored in the variable f
 ['312210121823', '4\n']
 ['312210121284', '7\n']
 ['312210124153', '18\n']
-['312210124153', '3\n']
+['312210124159', '3\n']
 ['312210124812', '4\n']
 ['312210123691', '9\n']
 ['312210128794', '7\n']
